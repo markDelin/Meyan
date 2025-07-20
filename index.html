@@ -713,224 +713,347 @@
     </div>
     
     <audio id="bgMusic" loop>
-        <source src="__athurrb - slippingthroughmyfinger.mp3" type="audio/mpeg">
+        <source src="https://example.com/slippingthroughmyfinger.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     
     <script>
-        // DOM Elements
-        const greetingPopup = document.getElementById('greetingPopup');
-        const confirmationPopup = document.getElementById('confirmationPopup');
-        const mainContent = document.getElementById('mainContent');
-        const enterButton = document.getElementById('enterButton');
-        const confirmYes = document.getElementById('confirmYes');
-        const confirmNo = document.getElementById('confirmNo');
-        const bgMusic = document.getElementById('bgMusic');
-        const musicControl = document.getElementById('musicControl');
-        const progressBar = document.getElementById('progressBar');
-        const slideNumber = document.getElementById('slideNumber');
-        const floatingElements = document.getElementById('floatingElements');
-        const confettiContainer = document.getElementById('confettiContainer');
-        const slideContainer = document.querySelector('.slide-container');
-        
-        // Music state
-        let isPlaying = false;
-        let currentSlide = 0;
-        const totalSlides = document.querySelectorAll('.slide').length;
-        
-        // Floating elements
-        const floatingShapes = ['❤️', '✨', '🎀', '🎂', '🎈', '🌸', '💫', '🥳', '🎉', '💖'];
-        
-        // Enter button click handler
-        enterButton.addEventListener('click', () => {
-            // Show confirmation popup
-            confirmationPopup.classList.add('active');
-        });
-        
-        // Confirmation yes button
-        confirmYes.addEventListener('click', () => {
-            confirmationPopup.classList.remove('active');
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const greetingPopup = document.getElementById('greetingPopup');
+            const confirmationPopup = document.getElementById('confirmationPopup');
+            const mainContent = document.getElementById('mainContent');
+            const enterButton = document.getElementById('enterButton');
+            const confirmYes = document.getElementById('confirmYes');
+            const confirmNo = document.getElementById('confirmNo');
+            const bgMusic = document.getElementById('bgMusic');
+            const musicControl = document.getElementById('musicControl');
+            const progressBar = document.getElementById('progressBar');
+            const slideNumber = document.getElementById('slideNumber');
+            const floatingElements = document.getElementById('floatingElements');
+            const confettiContainer = document.getElementById('confettiContainer');
+            const slideContainer = document.querySelector('.slide-container');
             
-            // Create initial confetti explosion
-            createConfetti(100);
+            // Music state
+            let isPlaying = false;
+            let currentSlide = 0;
+            const totalSlides = document.querySelectorAll('.slide').length;
             
-            // Play music when entering
-            bgMusic.play()
-                .then(() => {
-                    isPlaying = true;
-                    musicControl.textContent = '🎵';
-                })
-                .catch(e => {
-                    console.log("Audio play was prevented:", e);
-                    musicControl.style.display = 'flex';
-                });
+            // Floating elements
+            const floatingShapes = ['❤️', '✨', '🎀', '🎂', '🎈', '🌸', '💫', '🥳', '🎉', '💖'];
             
-            // Transition to main content
-            greetingPopup.style.opacity = '0';
-            setTimeout(() => {
-                greetingPopup.style.display = 'none';
-                mainContent.style.display = 'block';
-                createFloatingElements();
-                createHeartPulse();
-            }, 1500);
-        });
-        
-        // Confirmation no button
-        confirmNo.addEventListener('click', () => {
-            confirmationPopup.classList.remove('active');
-            alert("This letter is only for May Anne. Please exit this page.");
-        });
-        
-        // Create floating elements
-        function createFloatingElements() {
-            function createElement() {
-                const element = document.createElement('div');
-                element.className = 'floating-element';
-                element.innerHTML = floatingShapes[Math.floor(Math.random() * floatingShapes.length)];
-                element.style.left = Math.random() * 100 + 'vw';
-                element.style.fontSize = (Math.random() * 25 + 15) + 'px';
-                element.style.animationDuration = (Math.random() * 8 + 5) + 's';
-                element.style.animationDelay = Math.random() * 3 + 's';
-                floatingElements.appendChild(element);
+            // Initialize audio volume
+            bgMusic.volume = 0.5;
+            
+            // Enter button click handler
+            enterButton.addEventListener('click', () => {
+                // Show confirmation popup
+                confirmationPopup.classList.add('active');
+            });
+            
+            // Confirmation yes button
+            confirmYes.addEventListener('click', () => {
+                confirmationPopup.classList.remove('active');
                 
-                setTimeout(() => {
-                    element.remove();
-                }, 13000);
-            }
-            
-            setInterval(createElement, 500);
-        }
-        
-        // Create heart pulse effect
-        function createHeartPulse() {
-            function createHeart() {
-                const heart = document.createElement('div');
-                heart.className = 'heart-pulse';
-                heart.style.left = Math.random() * 90 + 'vw';
-                heart.style.top = Math.random() * 90 + 'vh';
-                document.body.appendChild(heart);
+                // Create initial confetti explosion
+                createConfetti(100);
                 
-                setTimeout(() => {
-                    heart.remove();
-                }, 4000);
-            }
-            
-            setInterval(createHeart, 1500);
-        }
-        
-        // Create confetti
-        function createConfetti(count) {
-            confettiContainer.style.display = 'block';
-            confettiContainer.innerHTML = '';
-            
-            for (let i = 0; i < count; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = `hsl(${Math.random() * 60 + 330}, 100%, ${Math.random() * 30 + 60}%)`;
-                confetti.style.width = Math.random() * 10 + 5 + 'px';
-                confetti.style.height = Math.random() * 10 + 5 + 'px';
-                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-                confetti.style.animationDelay = Math.random() * 2 + 's';
-                confettiContainer.appendChild(confetti);
-            }
-            
-            setTimeout(() => {
-                confettiContainer.style.display = 'none';
-            }, 5000);
-        }
-        
-        // Slide navigation
-        const slides = document.querySelectorAll('.slide');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        
-        function showSlide(index) {
-            // Update current slide
-            currentSlide = index;
-            
-            // Update progress bar
-            progressBar.style.width = `${(currentSlide + 1) / totalSlides * 100}%`;
-            
-            // Update slide number
-            slideNumber.textContent = `${currentSlide + 1}/${totalSlides}`;
-            
-            // Handle slide transitions
-            slides.forEach((slide, i) => {
-                slide.classList.toggle('active', i === index);
+                // Play music when entering
+                const playPromise = bgMusic.play();
                 
-                // Reset animations for active slide
-                if (i === index) {
-                    const elements = slide.querySelectorAll('h1, p');
-                    elements.forEach(el => {
-                        el.style.animation = 'none';
-                        void el.offsetWidth; // Trigger reflow
-                        el.style.animation = '';
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isPlaying = true;
+                        musicControl.textContent = '🎵';
+                    })
+                    .catch(error => {
+                        console.log("Audio play was prevented:", error);
+                        // Show music control to allow user to start music manually
+                        musicControl.style.display = 'flex';
                     });
+                }
+                
+                // Transition to main content
+                greetingPopup.style.opacity = '0';
+                setTimeout(() => {
+                    greetingPopup.style.display = 'none';
+                    mainContent.style.display = 'block';
+                    createFloatingElements();
+                    createHeartPulse();
+                }, 1500);
+            });
+            
+            // Confirmation no button
+            confirmNo.addEventListener('click', () => {
+                confirmationPopup.classList.remove('active');
+                alert("This letter is only for May Anne. Please exit this page.");
+                // Optionally redirect or close the page
+                // window.location.href = 'about:blank';
+            });
+            
+            // Create floating elements
+            function createFloatingElements() {
+                function createElement() {
+                    const element = document.createElement('div');
+                    element.className = 'floating-element';
+                    element.innerHTML = floatingShapes[Math.floor(Math.random() * floatingShapes.length)];
+                    element.style.left = Math.random() * 100 + 'vw';
+                    element.style.fontSize = (Math.random() * 25 + 15) + 'px';
+                    element.style.animationDuration = (Math.random() * 8 + 5) + 's';
+                    element.style.animationDelay = Math.random() * 3 + 's';
+                    floatingElements.appendChild(element);
+                    
+                    // Clean up elements after animation completes
+                    setTimeout(() => {
+                        if (element.parentNode === floatingElements) {
+                            floatingElements.removeChild(element);
+                        }
+                    }, 13000);
+                }
+                
+                // Create initial elements
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(createElement, i * 300);
+                }
+                
+                // Continue creating elements periodically
+                const intervalId = setInterval(createElement, 500);
+                
+                // Return cleanup function
+                return () => clearInterval(intervalId);
+            }
+            
+            let floatingElementsInterval;
+            
+            function createFloatingElements() {
+                function createElement() {
+                    const element = document.createElement('div');
+                    element.className = 'floating-element';
+                    element.innerHTML = floatingShapes[Math.floor(Math.random() * floatingShapes.length)];
+                    element.style.left = Math.random() * 100 + 'vw';
+                    element.style.fontSize = (Math.random() * 25 + 15) + 'px';
+                    element.style.animationDuration = (Math.random() * 8 + 5) + 's';
+                    element.style.animationDelay = Math.random() * 3 + 's';
+                    floatingElements.appendChild(element);
+                    
+                    setTimeout(() => {
+                        element.remove();
+                    }, 13000);
+                }
+                
+                // Clear any existing interval
+                if (floatingElementsInterval) {
+                    clearInterval(floatingElementsInterval);
+                }
+                
+                // Create initial batch
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(createElement, i * 300);
+                }
+                
+                // Set up continuous creation
+                floatingElementsInterval = setInterval(createElement, 500);
+            }
+            
+            // Create heart pulse effect
+            function createHeartPulse() {
+                function createHeart() {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-pulse';
+                    heart.style.left = Math.random() * 90 + 'vw';
+                    heart.style.top = Math.random() * 90 + 'vh';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 4000);
+                }
+                
+                // Clear any existing interval
+                if (window.heartInterval) {
+                    clearInterval(window.heartInterval);
+                }
+                
+                // Set up continuous creation
+                window.heartInterval = setInterval(createHeart, 1500);
+                
+                // Create initial hearts
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(createHeart, i * 500);
+                }
+            }
+            
+            // Create confetti
+            function createConfetti(count) {
+                confettiContainer.style.display = 'block';
+                confettiContainer.innerHTML = '';
+                
+                for (let i = 0; i < count; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = `hsl(${Math.random() * 60 + 330}, 100%, ${Math.random() * 30 + 60}%)`;
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = Math.random() * 10 + 5 + 'px';
+                    confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    confettiContainer.appendChild(confetti);
+                }
+                
+                setTimeout(() => {
+                    confettiContainer.style.display = 'none';
+                    confettiContainer.innerHTML = '';
+                }, 5000);
+            }
+            
+            // Slide navigation
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            function showSlide(index) {
+                // Boundary checks
+                if (index < 0) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
+                
+                // Update current slide
+                currentSlide = index;
+                
+                // Update progress bar
+                progressBar.style.width = `${(currentSlide + 1) / totalSlides * 100}%`;
+                
+                // Update slide number
+                slideNumber.textContent = `${currentSlide + 1}/${totalSlides}`;
+                
+                // Handle slide transitions
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                    
+                    // Reset animations for active slide
+                    if (i === index) {
+                        const elements = slide.querySelectorAll('h1, p');
+                        elements.forEach(el => {
+                            el.style.animation = 'none';
+                            void el.offsetWidth; // Trigger reflow
+                            el.style.animation = '';
+                        });
+                    }
+                });
+                
+                // Add slight tilt effect to slide container
+                if (index === totalSlides - 1) {
+                    slideContainer.style.transform = 'rotateX(1deg) rotateY(-1deg)';
+                    createConfetti(30);
+                } else {
+                    slideContainer.style.transform = 'rotateX(0) rotateY(0)';
+                }
+            }
+            
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+            
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+            
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
                 }
             });
             
-            // Add slight tilt effect to slide container
-            if (index === totalSlides - 1) {
-                slideContainer.style.transform = 'rotateX(1deg) rotateY(-1deg)';
-                createConfetti(30);
-            } else {
-                slideContainer.style.transform = 'rotateX(0) rotateY(0)';
+            // Swipe navigation for touch devices
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            slideContainer.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+            
+            slideContainer.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, {passive: true});
+            
+            function handleSwipe() {
+                const threshold = 50;
+                if (touchEndX < touchStartX - threshold) {
+                    nextSlide();
+                } else if (touchEndX > touchStartX + threshold) {
+                    prevSlide();
+                }
             }
-        }
-        
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                showSlide(currentSlide + 1);
-            } else {
-                // Loop back to first slide
-                showSlide(0);
-            }
-        }
-        
-        function prevSlide() {
-            if (currentSlide > 0) {
-                showSlide(currentSlide - 1);
-            } else {
-                // Loop to last slide
-                showSlide(totalSlides - 1);
-            }
-        }
-        
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') {
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
-            }
-        });
-        
-        // Music control
-        musicControl.addEventListener('click', () => {
-            if (isPlaying) {
-                bgMusic.pause();
-                musicControl.textContent = '🔇';
-            } else {
-                bgMusic.play();
-                musicControl.textContent = '🎵';
-            }
-            isPlaying = !isPlaying;
-        });
-        
-        // Initialize
-        showSlide(0);
-        
-        // Add hover effect to highlights
-        document.querySelectorAll('.highlight').forEach(highlight => {
-            highlight.addEventListener('mouseenter', () => {
-                highlight.style.transform = 'scale(1.05)';
+            
+            // Music control
+            musicControl.addEventListener('click', () => {
+                if (isPlaying) {
+                    bgMusic.pause();
+                    musicControl.textContent = '🔇';
+                } else {
+                    const playPromise = bgMusic.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.log("Audio play failed:", error);
+                        });
+                    }
+                    musicControl.textContent = '🎵';
+                }
+                isPlaying = !isPlaying;
             });
-            highlight.addEventListener('mouseleave', () => {
-                highlight.style.transform = 'scale(1)';
+            
+            // Add hover effect to highlights
+            document.querySelectorAll('.highlight').forEach(highlight => {
+                highlight.addEventListener('mouseenter', () => {
+                    highlight.style.transform = 'scale(1.05)';
+                });
+                highlight.addEventListener('mouseleave', () => {
+                    highlight.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Initialize
+            showSlide(0);
+            
+            // Clean up intervals when page is hidden to save resources
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    if (window.heartInterval) {
+                        clearInterval(window.heartInterval);
+                    }
+                    if (floatingElementsInterval) {
+                        clearInterval(floatingElementsInterval);
+                    }
+                    if (isPlaying) {
+                        bgMusic.pause();
+                    }
+                } else {
+                    if (mainContent.style.display === 'block') {
+                        createFloatingElements();
+                        createHeartPulse();
+                        if (isPlaying) {
+                            bgMusic.play().catch(e => console.log("Audio resume failed:", e));
+                        }
+                    }
+                }
+            });
+            
+            // Handle page unload
+            window.addEventListener('beforeunload', () => {
+                // Clean up any resources
+                if (window.heartInterval) {
+                    clearInterval(window.heartInterval);
+                }
+                if (floatingElementsInterval) {
+                    clearInterval(floatingElementsInterval);
+                }
             });
         });
     </script>
