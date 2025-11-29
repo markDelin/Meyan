@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy 17th Birthday Meyan!</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;600&family=Outfit:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Initial Greeting Popup -->
+    <div class="greeting-popup" id="greetingPopup">
+      <div class="greeting-text">Happy Birthday</div>
+      <div class="name-text">May Anne</div>
+      <button class="enter-button" id="enterButton">Open My Letter</button>
+    </div>
+
+    <!-- Confirmation Popup -->
+    <div class="confirmation-popup" id="confirmationPopup">
+      <div class="confirmation-box">
+        <div class="confirmation-title">Wait a moment...</div>
+        <div class="confirmation-text">
+          Are you sure you're May Anne? This digital letter is crafted specially
+          for her.
+        </div>
+        <div class="confirmation-buttons">
+          <button class="confirmation-button yes" id="confirmYes">
+            Yes, it's me
+          </button>
+          <button class="confirmation-button no" id="confirmNo">
+            No, I'm not
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+      <div class="floating-elements" id="floatingElements"></div>
+
+      <div class="slide-container">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="slide-number" id="slideNumber">1/7</div>
+
+        <!-- Slide 1 -->
+        <div class="slide active" id="slide1">
+          <h1>Happy 17th Birthday</h1>
+          <h1>May Anne! 💖</h1>
+          <p style="--delay: 0.5s">
+            On this special day, I wanted to create something just for you...
+          </p>
+          <p style="--delay: 0.8s">
+            A letter that comes from my heart, filled with wishes and memories.
+          </p>
+          <p style="--delay: 1.1s" class="highlight">
+            Swipe or click next to continue
+          </p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide" id="slide2">
+          <h1>Time Flies So Fast</h1>
+          <p style="--delay: 0.5s">
+            I can't believe you're already 17! It feels like just yesterday...
+          </p>
+          <p style="--delay: 0.8s">
+            I remember all our conversations and the moments we shared.
+          </p>
+          <p style="--delay: 1.1s">
+            Even if we don't talk as much now, those memories remain special.
+          </p>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" id="slide3">
+          <h1>Midnight Greetings</h1>
+          <p style="--delay: 0.5s">
+            You should know that you're still the only person I make sure to
+            greet exactly at midnight.
+          </p>
+          <p style="--delay: 0.8s">
+            It's become my little tradition, my way of celebrating you on your
+            day.
+          </p>
+          <p style="--delay: 1.1s">
+            A small gesture, but one that means more than you might think.
+          </p>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide" id="slide4">
+          <h1>I've Been Watching From Afar</h1>
+          <p style="--delay: 0.5s">
+            I'll admit - I still check on you sometimes.
+          </p>
+          <p style="--delay: 0.8s">
+            Seeing your profile changes, your achievements, your smiles...
+          </p>
+          <p style="--delay: 1.1s">
+            I'm genuinely happy to see you doing well in life.
+          </p>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide" id="slide5">
+          <h1>How You've Grown</h1>
+          <p style="--delay: 0.5s">
+            I'm so proud of how seriously you take your studies now.
+          </p>
+          <p style="--delay: 0.8s">
+            Remember when you wanted to transfer schools because you felt alone?
+          </p>
+          <p style="--delay: 1.1s">
+            Look at you now - stronger, more confident, and thriving!
+          </p>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide" id="slide6">
+          <h1>My Wishes For You</h1>
+          <p style="--delay: 0.5s">
+            Please always take care of yourself - health comes first.
+          </p>
+          <p style="--delay: 0.8s">
+            Whether you're in a relationship or focusing on studies, I hope
+            you're happy.
+          </p>
+          <p style="--delay: 1.1s">
+            Know that I'll always be cheering for you from the sidelines.
+          </p>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide" id="slide7">
+          <h1>One Last Thing</h1>
+          <p style="--delay: 0.5s">This letter is just between us, okay?</p>
+          <p style="--delay: 0.8s">
+            Thank you for being part of my life's story, even for just a
+            chapter.
+          </p>
+          <p style="--delay: 1.1s" class="highlight">
+            Happy 17th birthday, May Anne! 🎂✨
+          </p>
+        </div>
+
+        <div class="navigation">
+          <button class="nav-button" id="prevBtn">Previous</button>
+          <button class="nav-button" id="nextBtn">Next</button>
+        </div>
+      </div>
+
+      <div class="music-control" id="musicControl">🎵</div>
+    </div>
+
+    <audio id="bgMusic" loop>
+      <source src="__athurrb - slippingthroughmyfinger.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+  </body>
+</html>
